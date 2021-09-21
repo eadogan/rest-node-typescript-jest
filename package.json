@@ -1,0 +1,39 @@
+{
+  "name": "rest-node-typescript-jest",
+  "version": "1.0.0",
+  "description": "Node.js Rest API with typescript ",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node src/index.ts",
+    "test": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eadogan/rest-node-typescript-jest.git"
+  },
+  "keywords": [
+    "node.js",
+    "rest",
+    "restapi",
+    "jest",
+    "ts",
+    "typescript",
+    "docker"
+  ],
+  "author": "Dogan A.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eadogan/rest-node-typescript-jest/issues"
+  },
+  "homepage": "https://github.com/eadogan/rest-node-typescript-jest#readme",
+  "devDependencies": {
+    "dotenv": "^10.0.0",
+    "ts-node": "^10.2.1",
+    "tslint": "^6.1.3",
+    "typescript": "^4.4.3"
+  },
+  "dependencies": {
+    "@types/express": "^4.17.13",
+    "express": "^4.17.1"
+  }
+}
