@@ -1,1 +1,3 @@
-console.log("This is first commit");
+import startServer from './app'
+
+startServer()

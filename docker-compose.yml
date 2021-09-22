@@ -1,0 +1,11 @@
+version: "3.3"
+services:
+  mongodb:
+    image: mongo:4.0
+    container_name: node_mongo_docker
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INIT_DB_ROOT_USERNAME: User
+      MONGO_INIT_DB_ROOT_PASSWORD: Pass
+      MONGO_INIT_DB_DATABASE: restMongodb
