@@ -1,13 +1,10 @@
 import express from 'express';
+import routers from '../src/routers/place.routes';
+import connection from '../src/database/connection';
 
-function startServer() {
-    const PORT: number = 3000;
+const app = express();
+app.use(express.json());
+routers(app);
+connection.create();
 
-    const app = express();
-    app.use(express.json());
-    app.listen(PORT, () => {
-        console.log(`Server is listening port ${PORT}...`)
-    });
-}
-
-export default startServer
+export default app;
