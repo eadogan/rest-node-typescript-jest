@@ -2,7 +2,7 @@ import { Column, Entity, Index } from 'typeorm';
 import { Base } from './base.entity';
 
 @Entity()
-class Place extends Base {
+export class Place extends Base {
     @Column({ nullable: false})
     @Index({ unique: true })
     id: string;
