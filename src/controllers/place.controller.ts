@@ -1,16 +1,20 @@
-import { Request, Response } from 'express';
-import { JsonController, Param, Body, Get, Post, Put, Delete, BadRequestError } from 'routing-controllers';
+import { JsonController, Body, Post, BadRequestError } from 'routing-controllers';
 import { Service } from 'typedi';
 import { Place } from '../entities/place.entity';
+import { PlaceService } from '../services/place.service';
 
 @JsonController('/api')
 @Service()
 export class PlaceController {
 
-    constructor(private readonly placeService: any) {}
+    constructor(
+        private readonly placeService: PlaceService,
+    ) {}
+        
 
-    @Post()
-    async postPlace(@Body() place: Place): Promise<Place | undefined> {
+
+    @Post('/place-to-stays/ingest')
+    async postPlace(@Body() place: Place): Promise<Place | undefined | any> {
         try {
             return await this.placeService.createPlace(place);
         } catch (err: any) {
