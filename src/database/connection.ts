@@ -1,26 +1,38 @@
-import mongoose from 'mongoose';
+import { createConnection, getConnection, Connection } from 'typeorm';
+import config from '../../ormconfig';
 
-const URL: string = "mongodb://User:Pass@localhost:27017/restNodeDB?authSource=admin";
-
-const conncetion = {
-    async create(): Promise<void> {
-        try {
-            await mongoose.connect(URL, {
-                useNewUrlParser: true,
-                useUnifiedTopology: true,
-                useCreateIndex: true,
-                dbName: 'restMongodb'
-            }).then(() => {
-                console.log('Database connected');
-            })
-        } catch (err) {
-            throw new Error(`ERROR: Database connection: ${err}`);
-        }
-    },
-
-    async close(): Promise<void> {
-        await mongoose.disconnect();
+const connection = {
+  async create(callback?: (c: Connection) => void): Promise<void> {
+    try {
+      const connection = await createConnection(config);
+      if (callback) {
+        callback(connection);
+      }
+    } catch (error) {
+      throw new Error(`ERROR: Creating Database connection: ${error}`);
     }
-}
+  },
 
-export default conncetion;
+  async close(): Promise<void> {
+    await getConnection().close();
+  },
+
+  async clear(): Promise<void> {
+    const connection = getConnection();
+    const entities = connection.entityMetadatas;
+
+    const reposToClear: Promise<void>[] = [];
+    entities.forEach(entity => {
+      const repository = connection.getRepository(entity.name);
+      try {
+        reposToClear.push(repository.clear());
+      } catch (error) {
+        throw new Error(`ERROR: Cleaning Database: ${error}`);
+      }
+    });
+
+    return Promise.all(reposToClear).then();
+  }
+};
+
+export default connection;

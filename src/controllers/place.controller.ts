@@ -1,13 +1,27 @@
-import { Request, Response } from 'express';
+import { JsonController, Body, Post, BadRequestError } from 'routing-controllers';
+import { Service } from 'typedi';
+import { Place } from '../entities/place.entity';
+import { PlaceService } from '../services/place.service';
 
-export const getPlace =  (req: Request, res: Response) => {
-    return res.status(200).json({
-        message: 'Get Place'
-    })
-}
+@JsonController('/api')
+@Service()
+export class PlaceController {
 
-export const createPlace =  (req: Request, res: Response) => {
-    return res.status(201).json({
-        message: "Create Place"
-    })
+    constructor(
+        private readonly placeService: PlaceService,
+    ) {}
+        
+
+
+    @Post('/place-to-stays/ingest')
+    async postPlace(@Body() place: Place): Promise<Place | undefined | any> {
+        try {
+            return await this.placeService.createPlace(place);
+        } catch (err: any) {
+            throw new BadRequestError(
+                err.detail ?? err.message ?? 'Specific Error'
+            );
+        }
+    }
+
 }
