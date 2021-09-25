@@ -1,30 +1,30 @@
-import { Column, Entity, Index } from 'typeorm';
+import { Column, Entity, Index, ObjectIdColumn } from 'typeorm';
 import { Base } from './base.entity';
 
 @Entity()
 export class Place extends Base {
-    @Column({ nullable: false})
-    @Index({ unique: true })
+    @Column()
+    @ObjectIdColumn()
     id: string;
 
-    @Column({ nullable: false})
+    @Column()
     slug: string;
 
-    @Column({ nullable: false})
+    @Column()
     title: string;
 
-    @Column({ nullable: false})
+    @Column()
     description: string;
 
-    @Column({ nullable: false})
+    @Column()
     address: string;
 
-    @Column({ nullable: true})
+    @Column()
     country: string;
 
-    @Column({ nullable: true})
+    @Column()
     starRating: number;
 
-    @Column({ nullable: false})
+    @Column()
     category: string;
 }
