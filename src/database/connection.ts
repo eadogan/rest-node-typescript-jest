@@ -1,5 +1,5 @@
-import { createConnection, getConnection, Connection } from 'typeorm';
-import config from '../../ormconfig';
+import { createConnection, getConnection, Connection } from "typeorm";
+import config from "../../ormconfig";
 
 const connection = {
   async create(callback?: (c: Connection) => void): Promise<void> {
@@ -22,7 +22,7 @@ const connection = {
     const entities = connection.entityMetadatas;
 
     const reposToClear: Promise<void>[] = [];
-    entities.forEach(entity => {
+    entities.forEach((entity) => {
       const repository = connection.getRepository(entity.name);
       try {
         reposToClear.push(repository.clear());
@@ -32,7 +32,7 @@ const connection = {
     });
 
     return Promise.all(reposToClear).then();
-  }
+  },
 };
 
 export default connection;

@@ -13,12 +13,17 @@ import { PlaceService } from "../services/place.service";
 import { InsertResult } from "typeorm";
 import { EntityMapper } from "../utils/mapper.service";
 
-@JsonController("/api")
+@JsonController("/place")
 @Service()
 export class PlaceController {
   constructor(private readonly placeService: PlaceService) {}
 
-  @Post("/place-to-stays/ingest")
+  @Get()
+  async getPlaces(): Promise<Place[]> {
+    return this.placeService.getPlaces();
+  }
+
+  @Post()
   async postPlace(@Body() placeDTO: PlaceDTO): Promise<InsertResult> {
     try {
       return await this.placeService.createPlace(
