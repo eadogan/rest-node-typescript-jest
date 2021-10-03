@@ -2,7 +2,7 @@ import { Column, Entity, ObjectIdColumn } from "typeorm";
 import { Base } from "./base.entity";
 
 @Entity()
-export class Place extends Base {
+export class Place {
   @Column()
   @ObjectIdColumn()
   id: string;

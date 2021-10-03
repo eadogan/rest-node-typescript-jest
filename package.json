@@ -6,7 +6,8 @@
   "scripts": {
     "dev:nodemon": "nodemon --config nodemon.json src/index.ts",
     "dev": "ts-node src/index.ts",
-    "test": "jest --watch"
+    "test": "jest --forceExit --watchAll --maxWorkers=1",
+    "debug": "node --inspect-brk node_modules/.bin/jest --runInBand"
   },
   "repository": {
     "type": "git",
